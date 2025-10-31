@@ -4,7 +4,6 @@
 
 @layer base {
   :root {
-    /* Thay đổi background từ kem sang trắng */
     --background: 0 0% 100%;
     --foreground: 0 0% 20%;
     --card: 0 0% 96%;
@@ -24,7 +23,7 @@
     --border: 0 0% 86%;
     --input: 0 0% 100%;
     --ring: 0 0% 20%;
-    --radius: 0.25rem;
+    --radius: 0.5rem;
   }
 
   .dark {
@@ -55,6 +54,8 @@
 
   body {
     @apply bg-background text-foreground;
+    /* Đổi font thành Noto Sans, Helvetica Neue */
+    font-family: "Noto Sans", "Helvetica Neue", sans-serif;
   }
 
   h1,
