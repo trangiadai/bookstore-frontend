@@ -50,7 +50,8 @@ export const BOOKS = [
     image: "/sapiens-book-cover.png",
     category: "Lịch sử",
     inStock: true,
-    description: "Từ một sinh vật không đáng kể, bộ lạc Homo Sapiens đã vươn lên thống trị hành tinh này như thế nào?",
+    description:
+      "Từ một sinh vật không đáng kể, bộ lạc Homo Sapiens đã vươn lên thống trị hành tinh này như thế nào?",
     pages: 512,
     publisher: "NXB Thế Giới",
     publishDate: "2018-03-20",
@@ -69,7 +70,8 @@ export const BOOKS = [
     image: "/book-cover-youth.jpg",
     category: "Kỹ năng sống",
     inStock: true,
-    description: "Tuổi trẻ đáng giá bao nhiêu? là cuốn sách dành cho mọi lứa tuổi, đặc biệt là tuổi trẻ.",
+    description:
+      "Tuổi trẻ đáng giá bao nhiêu? là cuốn sách dành cho mọi lứa tuổi, đặc biệt là tuổi trẻ.",
     pages: 268,
     publisher: "NXB Hội Nhà Văn",
     publishDate: "2019-11-10",
@@ -108,7 +110,8 @@ export const BOOKS = [
     image: "/book-cover-coffee-tony.jpg",
     category: "Kỹ năng sống",
     inStock: false,
-    description: "Cà phê cùng Tony là tập hợp những bài viết truyền cảm hứng của tác giả Tony Buổi Sáng.",
+    description:
+      "Cà phê cùng Tony là tập hợp những bài viết truyền cảm hứng của tác giả Tony Buổi Sáng.",
     pages: 296,
     publisher: "NXB Trẻ",
     publishDate: "2017-06-20",
@@ -127,7 +130,8 @@ export const BOOKS = [
     image: "/book-cover-yellow-flowers.jpg",
     category: "Văn học",
     inStock: true,
-    description: "Tôi thấy hoa vàng trên cỏ xanh là một tác phẩm văn học đầy cảm xúc của nhà văn Nguyễn Nhật Ánh.",
+    description:
+      "Tôi thấy hoa vàng trên cỏ xanh là một tác phẩm văn học đầy cảm xúc của nhà văn Nguyễn Nhật Ánh.",
     pages: 368,
     publisher: "NXB Trẻ",
     publishDate: "2010-12-01",
@@ -146,7 +150,8 @@ export const BOOKS = [
     image: "/thinking-fast-slow-cover.png",
     category: "Tâm lý học",
     inStock: true,
-    description: "Trong cuốn sách này, Daniel Kahneman giải thích hai hệ thống định hình cách chúng ta suy nghĩ.",
+    description:
+      "Trong cuốn sách này, Daniel Kahneman giải thích hai hệ thống định hình cách chúng ta suy nghĩ.",
     pages: 499,
     publisher: "NXB Thế Giới",
     publishDate: "2019-04-10",
@@ -154,11 +159,11 @@ export const BOOKS = [
     isbn: "978-604-2-88888-8",
     genres: ["Tâm lý học", "Khoa học", "Kinh tế học hành vi"],
   },
-]
+];
 
 export function getBookById(id) {
-  const numId = typeof id === "string" ? Number.parseInt(id, 10) : id
-  return BOOKS.find((book) => book.id === numId)
+  const numId = typeof id === "string" ? Number.parseInt(id, 10) : id;
+  return BOOKS.find((book) => book.id === numId);
 }
 
 export function formatPrice(price) {
@@ -166,5 +171,118 @@ export function formatPrice(price) {
     style: "currency",
     currency: "VND",
     minimumFractionDigits: 0,
-  }).format(price)
+  }).format(price);
+}
+
+export const BOOK_REVIEWS = {
+  1: [
+    {
+      id: 1,
+      author: "Minh Tuấn",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=minhtuan",
+      rating: 5,
+      date: "2024-01-15",
+      title: "Cuốn sách rất hay, giúp tôi rất nhiều",
+      content:
+        "Đắc nhân tâm là quyển sách kinh điển mà mọi người nên đọc ít nhất một lần trong đời. Nó giúp tôi hiểu rõ hơn về cách sống và giao tiếp với mọi người xung quanh.",
+    },
+    {
+      id: 2,
+      author: "Lan Anh",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=lananh",
+      rating: 4,
+      date: "2024-01-10",
+      title: "Hay nhưng hơi cũ",
+      content:
+        "Nội dung rất hữu ích nhưng một số phần hơi lạc hậu so với thời đại hiện nay. Nhìn chung vẫn là quyển sách giá trị.",
+    },
+    {
+      id: 3,
+      author: "Hồng Phúc",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=hongphuc",
+      rating: 5,
+      date: "2024-01-05",
+      title: "Tuyệt vời",
+      content:
+        "Tôi đã đọc quyển sách này ba lần rồi và mỗi lần đều học được điều gì đó mới. Rất đáng đầu tư.",
+    },
+  ],
+  2: [
+    {
+      id: 1,
+      author: "Khoa Nguyễn",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=khoanguyen",
+      rating: 5,
+      date: "2024-01-12",
+      title: "Cuốn sách tuyệt vời",
+      content:
+        "Nhà Giả Kim là quyển sách kinh điển về tìm kiếm ý nghĩa cuộc sống. Coelho viết rất hay và cuốn hút.",
+    },
+    {
+      id: 2,
+      author: "Linh Chi",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=linhchi",
+      rating: 4,
+      date: "2024-01-08",
+      title: "Hay nhưng hơi dài",
+      content:
+        "Nội dung hay nhưng tôi cảm thấy có một số phần lặp lại. Nhưng nhìn chung vẫn là quyển sách hay.",
+    },
+  ],
+  3: [
+    {
+      id: 1,
+      author: "Đức Hùng",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=duchung",
+      rating: 5,
+      date: "2024-01-14",
+      title: "Sách hay cho những ai muốn hiểu về lịch sử",
+      content:
+        "Sapiens cung cấp một cái nhìn toàn cảnh về lịch sử nhân loại. Harari viết rất sâu sắc và dễ hiểu.",
+    },
+    {
+      id: 2,
+      author: "Thảo Linh",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=thaolinh",
+      rating: 4,
+      date: "2024-01-09",
+      title: "Tư duy mới lạ",
+      content:
+        "Cuốn sách giúp tôi có cái nhìn mới về nhân loại. Hơi khó hiểu ở một số chỗ nhưng nói chung rất tốt.",
+    },
+  ],
+  4: [
+    {
+      id: 1,
+      author: "Mai Hương",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=maihuong",
+      rating: 5,
+      date: "2024-01-11",
+      title: "Sách hay cho tuổi trẻ",
+      content:
+        "Rosie Nguyễn viết rất hay, gần gũi với sinh viên. Cuốn sách giúp tôi hiểu rõ hơn về tương lai của mình.",
+    },
+  ],
+};
+
+export function getReviewsByBookId(bookId) {
+  return BOOK_REVIEWS[bookId] || [];
+}
+
+export function calculateRatingStats(reviews) {
+  const stats = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+  const total = reviews.length;
+
+  reviews.forEach((review) => {
+    stats[review.rating]++;
+  });
+
+  return {
+    totalReviews: total,
+    averageRating:
+      total > 0
+        ? (reviews.reduce((sum, r) => sum + r.rating, 0) / total).toFixed(1)
+        : 0,
+    stats,
+  };
 }

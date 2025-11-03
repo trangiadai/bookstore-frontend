@@ -1,53 +1,64 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
-import { BOOKS } from "../lib/books"
-import { useCart } from "../contexts/CartContext"
-import { formatPrice } from "../lib/books"
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { BOOKS } from "../lib/books";
+import { useCart } from "../contexts/CartContext";
+import { formatPrice } from "../lib/books";
+import ReviewSection from "../components/ReviewSection";
 
 export default function ProductDetailPage() {
-  const { id } = useParams()
-  const navigate = useNavigate()
-  const { addToCart } = useCart()
-  const [quantity, setQuantity] = useState(1)
-  const [userRating, setUserRating] = useState(0)
-  const [isWishlisted, setIsWishlisted] = useState(false)
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
+  const [userRating, setUserRating] = useState(0);
+  const [isWishlisted, setIsWishlisted] = useState(false);
 
-  const book = BOOKS.find((b) => b.id === Number.parseInt(id))
+  const book = BOOKS.find((b) => b.id === Number.parseInt(id));
 
   if (!book) {
     return (
       <main className="max-w-7xl mx-auto px-4 py-8">
-        <button onClick={() => navigate(-1)} className="text-primary hover:underline mb-4">
+        <button
+          onClick={() => navigate(-1)}
+          className="text-primary hover:underline mb-4"
+        >
           ← Quay lại
         </button>
         <p className="text-center text-gray-600">Sách không tìm thấy</p>
       </main>
-    )
+    );
   }
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
-      addToCart(book.id.toString())
+      addToCart(book.id.toString());
     }
-    navigate("/cart")
-  }
+    navigate("/cart");
+  };
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8">
-      <button onClick={() => navigate(-1)} className="text-primary hover:underline mb-8 flex items-center gap-1">
+      <button
+        onClick={() => navigate(-1)}
+        className="text-primary hover:underline mb-8 flex items-center gap-1"
+      >
         ← Quay lại
       </button>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Left: Product Image and Actions */}
-        <div className="md:col-span-1">
+        {/* Left: Product Image and Actions - STICKY */}
+        <div className="md:col-span-1 md:sticky md:top-4 md:h-fit">
           <div
             className="bg-gray-100 rounded-lg overflow-hidden mb-4 flex items-center justify-center w-full md:w-80"
             style={{ aspectRatio: "3/4" }}
           >
-            <img src={book.image || "/placeholder.svg"} alt={book.title} className="w-full h-full object-cover" />
+            <img
+              src={book.image || "/placeholder.svg"}
+              alt={book.title}
+              className="w-full h-full object-cover"
+            />
           </div>
 
           <button
@@ -82,7 +93,7 @@ export default function ProductDetailPage() {
           </div>
         </div>
 
-        {/* Right: Product Details */}
+        {/* Right: Product Details - SCROLLABLE */}
         <div className="md:col-span-2">
           <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
           <p className="text-gray-600 text-lg mb-4">bởi {book.author}</p>
@@ -95,19 +106,24 @@ export default function ProductDetailPage() {
               ))}
             </div>
             <span className="text-gray-600">
-              {book.rating} · {book.reviews.toLocaleString("vi-VN")} đánh giá · {book.reviews.toLocaleString("vi-VN")}{" "}
-              nhận xét
+              {book.rating} · {book.reviews.toLocaleString("vi-VN")} đánh giá ·{" "}
+              {book.reviews.toLocaleString("vi-VN")} nhận xét
             </span>
           </div>
 
           {/* Description */}
-          <p className="text-gray-700 mb-6 leading-relaxed">{book.description}</p>
+          <p className="text-gray-700 mb-6 leading-relaxed">
+            {book.description}
+          </p>
 
           <div className="mb-6">
             <p className="text-sm font-semibold mb-2">Thể loại</p>
             <div className="flex flex-wrap gap-2">
               {book.genres.map((genre) => (
-                <span key={genre} className="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm">
+                <span
+                  key={genre}
+                  className="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm"
+                >
                   {genre}
                 </span>
               ))}
@@ -127,7 +143,9 @@ export default function ProductDetailPage() {
               </div>
               <div>
                 <p className="text-gray-600">Ngày xuất bản</p>
-                <p className="font-semibold">{new Date(book.publishDate).toLocaleDateString("vi-VN")}</p>
+                <p className="font-semibold">
+                  {new Date(book.publishDate).toLocaleDateString("vi-VN")}
+                </p>
               </div>
               <div>
                 <p className="text-gray-600">Ngôn ngữ</p>
@@ -143,9 +161,13 @@ export default function ProductDetailPage() {
           {/* Price and Quantity */}
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl font-bold text-primary">{formatPrice(book.price)}</span>
+              <span className="text-3xl font-bold text-primary">
+                {formatPrice(book.price)}
+              </span>
               {book.originalPrice && (
-                <span className="text-lg text-gray-500 line-through">{formatPrice(book.originalPrice)}</span>
+                <span className="text-lg text-gray-500 line-through">
+                  {formatPrice(book.originalPrice)}
+                </span>
               )}
             </div>
 
@@ -157,15 +179,22 @@ export default function ProductDetailPage() {
                 >
                   −
                 </button>
-                <span className="px-6 py-2 border-l border-r border-gray-300">{quantity}</span>
-                <button onClick={() => setQuantity(quantity + 1)} className="px-4 py-2 text-gray-600 hover:bg-gray-100">
+                <span className="px-6 py-2 border-l border-r border-gray-300">
+                  {quantity}
+                </span>
+                <button
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="px-4 py-2 text-gray-600 hover:bg-gray-100"
+                >
                   +
                 </button>
               </div>
             </div>
           </div>
+
+          <ReviewSection bookId={book.id} bookRating={book.rating} />
         </div>
       </div>
     </main>
-  )
+  );
 }
