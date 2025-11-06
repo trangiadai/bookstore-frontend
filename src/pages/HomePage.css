@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .home-main {
+    @apply px-2 sm:px-4 lg:px-6 py-8;
+  }
+
+  .home-container {
+    @apply flex gap-4;
+  }
+
+  .home-sidebar {
+    @apply hidden md:block w-full md:w-64 flex-shrink-0;
+  }
+
+  .home-sidebar-mobile {
+    @apply block md:hidden;
+  }
+
+  .home-sidebar-hidden {
+    @apply hidden;
+  }
+
+  .home-content {
+    @apply flex-1;
+  }
+
+  .filter-toggle-btn {
+    @apply md:hidden mb-4 px-4 py-2 bg-primary text-white rounded-lg;
+  }
+
+  .home-header {
+    @apply mb-6;
+  }
+
+  .home-title {
+    @apply text-2xl font-bold;
+  }
+
+  .home-subtitle {
+    @apply text-gray-600;
+  }
+
+  .home-grid {
+    @apply grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4;
+  }
+}

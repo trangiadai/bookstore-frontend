@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .book-card {
+    @apply bg-white;
+  }
+
+  .book-image-container {
+    @apply relative overflow-hidden bg-gray-100 cursor-pointer rounded-lg border border-gray-200;
+  }
+
+  .book-image {
+    @apply w-full h-full object-cover hover:scale-105 transition-transform;
+  }
+
+  .cart-button {
+    @apply absolute bottom-4 right-4 bg-black text-white p-1.5 rounded-lg transition-colors;
+  }
+
+  .cart-icon {
+    @apply w-5 h-5;
+  }
+
+  .book-info {
+    @apply pt-3;
+  }
+
+  .book-title {
+    @apply font-bold text-sm sm:text-base line-clamp-2 cursor-pointer hover:text-primary transition-colors;
+  }
+
+  .book-author {
+    @apply text-gray-600 text-xs sm:text-sm;
+  }
+
+  .book-rating-container {
+    @apply flex items-center gap-2 my-2;
+  }
+
+  .book-rating-stars {
+    @apply flex text-yellow-400;
+  }
+
+  .book-review-count {
+    @apply text-xs text-gray-600;
+  }
+
+  .book-price-container {
+    @apply flex items-center gap-2 mb-3;
+  }
+
+  .book-price {
+    @apply font-bold text-primary;
+  }
+
+  .book-original-price {
+    @apply text-xs text-gray-500 line-through;
+  }
+}

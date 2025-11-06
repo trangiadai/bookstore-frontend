@@ -1,8 +1,8 @@
 "use client";
 
+import "./ReviewSection.css";
 import { useState } from "react";
 import { getReviewsByBookId, calculateRatingStats } from "../lib/books";
-import { Search, X } from "lucide-react";
 
 export default function ReviewSection({ bookId, bookRating }) {
   const [reviews, setReviews] = useState(getReviewsByBookId(bookId));
@@ -45,27 +45,27 @@ export default function ReviewSection({ bookId, bookRating }) {
   });
 
   return (
-    <section className="mt-12 pt-8 border-t border-gray-200">
-      <h2 className="text-2xl font-bold mb-6">Đánh giá từ cộng đồng</h2>
+    <section className="review-section">
+      <h2 className="review-title">Đánh giá từ cộng đồng</h2>
 
       {/* Rating Stats */}
-      <div className="mb-8 p-6 bg-gray-50 rounded-lg">
-        <div className="flex items-start gap-8">
+      <div className="rating-stats-container">
+        <div className="rating-stats-flex">
           {/* Average Rating */}
-          <div className="flex flex-col items-center">
-            <div className="flex text-yellow-400 text-3xl mb-2">
+          <div className="rating-average-container">
+            <div className="rating-average-stars">
               {[...Array(5)].map((_, i) => (
                 <span key={i}>{i < Math.floor(bookRating) ? "★" : "☆"}</span>
               ))}
             </div>
-            <span className="text-2xl font-bold">{bookRating}</span>
-            <p className="text-sm text-gray-600 mt-1">
+            <span className="rating-average-score">{bookRating}</span>
+            <p className="rating-average-text">
               {ratingStats.totalReviews} đánh giá
             </p>
           </div>
 
           {/* Rating Bars */}
-          <div className="flex-1">
+          <div className="rating-bars-container">
             {[5, 4, 3, 2, 1].map((stars) => {
               const count = ratingStats.stats[stars] || 0;
               const percentage =
@@ -73,24 +73,22 @@ export default function ReviewSection({ bookId, bookRating }) {
                   ? (count / ratingStats.totalReviews) * 100
                   : 0;
               return (
-                <div key={stars} className="flex items-center gap-3 mb-3">
+                <div key={stars} className="rating-bar-row">
                   <button
                     onClick={() =>
                       setFilterRating(filterRating === stars ? 0 : stars)
                     }
-                    className="text-sm font-medium text-gray-700 hover:text-blue-600 w-12"
+                    className="rating-bar-button"
                   >
                     {stars} sao
                   </button>
-                  <div className="flex-1 bg-gray-300 rounded-full h-2 overflow-hidden">
+                  <div className="rating-bar-background">
                     <div
-                      className="bg-yellow-400 h-full"
+                      className="rating-bar-fill"
                       style={{ width: `${percentage}%` }}
                     />
                   </div>
-                  <span className="text-sm text-gray-600 w-12 text-right">
-                    {count}
-                  </span>
+                  <span className="rating-bar-count">{count}</span>
                 </div>
               );
             })}
@@ -98,17 +96,17 @@ export default function ReviewSection({ bookId, bookRating }) {
         </div>
       </div>
 
-      <div className="mb-8 p-6 border border-gray-300 rounded-lg bg-white">
-        <div className="space-y-4">
+      <div className="review-form-container">
+        <div className="review-form-space">
           {/* Rating Selection */}
-          <div>
-            <p className="text-sm font-semibold mb-2">Cho số sao</p>
-            <div className="flex gap-2">
+          <div className="form-section">
+            <p className="form-section-label">Cho số sao</p>
+            <div className="rating-input-stars">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
                   onClick={() => setReviewForm({ ...reviewForm, rating: star })}
-                  className="text-3xl transition-colors"
+                  className="rating-input-star"
                   style={{
                     color: star <= reviewForm.rating ? "#fbbf24" : "#e5e7eb",
                   }}
@@ -121,9 +119,7 @@ export default function ReviewSection({ bookId, bookRating }) {
 
           {/* Title Input */}
           <div>
-            <label className="text-sm font-semibold block mb-2">
-              Tiêu đề đánh giá
-            </label>
+            <label className="form-section-label-block">Tiêu đề đánh giá</label>
             <input
               type="text"
               placeholder="Nhập tiêu đề đánh giá..."
@@ -131,13 +127,13 @@ export default function ReviewSection({ bookId, bookRating }) {
               onChange={(e) =>
                 setReviewForm({ ...reviewForm, title: e.target.value })
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="form-input"
             />
           </div>
 
           {/* Content Input */}
           <div>
-            <label className="text-sm font-semibold block mb-2">
+            <label className="form-section-label-block">
               Nội dung đánh giá
             </label>
             <textarea
@@ -146,17 +142,14 @@ export default function ReviewSection({ bookId, bookRating }) {
               onChange={(e) =>
                 setReviewForm({ ...reviewForm, content: e.target.value })
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              className="form-textarea"
               rows="4"
             />
           </div>
 
           {/* Submit Button */}
           <div>
-            <button
-              onClick={handleSubmitReview}
-              className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
-            >
+            <button onClick={handleSubmitReview} className="submit-btn">
               Gửi đánh giá
             </button>
           </div>
@@ -164,75 +157,87 @@ export default function ReviewSection({ bookId, bookRating }) {
       </div>
 
       {/* Search and Filter */}
-      <div className="flex gap-4 mb-6">
-        <div className="flex-1 relative">
-          <Search
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-            size={20}
-          />
+      <div className="search-filter-container">
+        <div className="search-input-wrapper">
+          <svg
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
           <input
             type="text"
             placeholder="Tìm kiếm bình luận..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="search-input"
           />
           {searchText && (
             <button
               onClick={() => setSearchText("")}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              className="search-clear-btn"
             >
-              <X size={20} />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
             </button>
           )}
         </div>
       </div>
 
       {/* Reviews List */}
-      <div className="space-y-6">
+      <div className="reviews-list">
         {filteredReviews.length > 0 ? (
           filteredReviews.map((review) => (
-            <div
-              key={review.id}
-              className="pb-6 border-b border-gray-200 last:border-b-0"
-            >
-              <div className="flex gap-4">
+            <div key={review.id} className="review-item">
+              <div className="review-item-flex">
                 {/* Avatar */}
                 <img
                   src={review.avatar || "/placeholder.svg"}
                   alt={review.author}
-                  className="w-12 h-12 rounded-full object-cover"
+                  className="review-avatar"
                 />
 
                 {/* Review Content */}
-                <div className="flex-1">
-                  <div className="flex items-start justify-between mb-2">
+                <div className="review-content-container">
+                  <div className="review-header">
                     <div>
-                      <p className="font-semibold text-gray-900">
-                        {review.author}
-                      </p>
-                      <p className="text-sm text-gray-600">
+                      <p className="review-author-name">{review.author}</p>
+                      <p className="review-date">
                         {new Date(review.date).toLocaleDateString("vi-VN")}
                       </p>
                     </div>
                   </div>
 
                   {/* Rating Stars */}
-                  <div className="flex text-yellow-400 text-lg mb-2">
+                  <div className="review-stars">
                     {[...Array(5)].map((_, i) => (
                       <span key={i}>{i < review.rating ? "★" : "☆"}</span>
                     ))}
                   </div>
 
                   {/* Review Title and Content */}
-                  <p className="font-semibold text-gray-900 mb-2">
-                    {review.title}
-                  </p>
-                  <p className="text-gray-700 leading-relaxed">
-                    {review.content}
-                  </p>
+                  <p className="review-title-text">{review.title}</p>
+                  <p className="review-text">{review.content}</p>
 
-                  <button className="mt-3 text-sm font-semibold text-gray-600 hover:text-gray-900">
+                  <button className="review-action-btn">
                     Hữu ích · Phản hồi
                   </button>
                 </div>
@@ -240,7 +245,7 @@ export default function ReviewSection({ bookId, bookRating }) {
             </div>
           ))
         ) : (
-          <p className="text-center text-gray-600 py-8">Chưa có đánh giá nào</p>
+          <p className="reviews-empty">Chưa có đánh giá nào</p>
         )}
       </div>
     </section>
