@@ -1,5 +1,6 @@
 "use client";
 
+import "./HomePage.css";
 import { useState } from "react";
 import BookCard from "../components/BookCard";
 import BookFilters from "../components/BookFilters";
@@ -40,32 +41,37 @@ export default function HomePage() {
   };
 
   return (
-    <main className="px-2 sm:px-4 lg:px-6 py-8">
-      <div className="flex gap-4">
+    <main className="home-main">
+      <div className="home-container">
         {/* Sidebar Filters */}
         <div
-          className={`${
-            showFilters ? "block" : "hidden"
-          } md:block w-full md:w-64 flex-shrink-0`}
+          className={
+            showFilters ? "home-sidebar-mobile" : "home-sidebar-hidden"
+          }
         >
           <BookFilters onFilter={handleFilter} />
         </div>
 
+        {/* Sidebar visible on desktop */}
+        <div className="hidden md:block md:w-64 flex-shrink-0">
+          <BookFilters onFilter={handleFilter} />
+        </div>
+
         {/* Main Content */}
-        <div className="flex-1">
+        <div className="home-content">
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="md:hidden mb-4 px-4 py-2 bg-primary text-white rounded-lg"
+            className="filter-toggle-btn"
           >
             {showFilters ? "Ẩn bộ lọc" : "Hiện bộ lọc"}
           </button>
 
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold">Tất cả sách</h1>
-            <p className="text-gray-600">{filteredBooks.length} cuốn sách</p>
+          <div className="home-header">
+            <h1 className="home-title">Tất cả sách</h1>
+            <p className="home-subtitle">{filteredBooks.length} cuốn sách</p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="home-grid">
             {filteredBooks.map((book) => (
               <BookCard key={book.id} book={book} />
             ))}

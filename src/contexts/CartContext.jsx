@@ -1,62 +1,68 @@
-"use client"
+"use client";
 
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState, useEffect } from "react";
 
-const CartContext = createContext()
+const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [items, setItems] = useState([])
-  const [isHydrated, setIsHydrated] = useState(false)
+  const [items, setItems] = useState([]);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    const savedCart = localStorage.getItem("cart")
+    const savedCart = localStorage.getItem("cart");
     if (savedCart) {
       try {
-        setItems(JSON.parse(savedCart))
+        setItems(JSON.parse(savedCart));
       } catch (error) {
-        console.error("Error loading cart:", error)
+        console.error("Error loading cart:", error);
       }
     }
-    setIsHydrated(true)
-  }, [])
+    setIsHydrated(true);
+  }, []);
 
   useEffect(() => {
     if (isHydrated) {
-      localStorage.setItem("cart", JSON.stringify(items))
+      localStorage.setItem("cart", JSON.stringify(items));
     }
-  }, [items, isHydrated])
+  }, [items, isHydrated]);
 
   const addToCart = (productId, quantity = 1) => {
     setItems((prev) => {
-      const existing = prev.find((item) => item.productId === productId)
+      const existing = prev.find((item) => item.productId === productId);
       if (existing) {
         return prev.map((item) =>
-          item.productId === productId ? { ...item, quantity: item.quantity + quantity } : item,
-        )
+          item.productId === productId
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        );
       }
-      return [...prev, { productId, quantity }]
-    })
-  }
+      return [...prev, { productId, quantity }];
+    });
+  };
 
   const removeFromCart = (productId) => {
-    setItems((prev) => prev.filter((item) => item.productId !== productId))
-  }
+    setItems((prev) => prev.filter((item) => item.productId !== productId));
+  };
 
   const updateQuantity = (productId, quantity) => {
     if (quantity <= 0) {
-      removeFromCart(productId)
-      return
+      removeFromCart(productId);
+      return;
     }
-    setItems((prev) => prev.map((item) => (item.productId === productId ? { ...item, quantity } : item)))
-  }
+    setItems((prev) =>
+      prev.map((item) =>
+        item.productId === productId ? { ...item, quantity } : item
+      )
+    );
+  };
 
   const clearCart = () => {
-    setItems([])
-  }
+    setItems([]);
+  };
 
   const getItemCount = () => {
-    return items.reduce((total, item) => total + item.quantity, 0)
-  }
+    return items.reduce((total, item) => total + item.quantity, 0);
+  };
 
   return (
     <CartContext.Provider
@@ -72,13 +78,13 @@ export function CartProvider({ children }) {
     >
       {children}
     </CartContext.Provider>
-  )
+  );
 }
 
 export function useCart() {
-  const context = useContext(CartContext)
+  const context = useContext(CartContext);
   if (!context) {
-    throw new Error("useCart must be used within CartProvider")
+    throw new Error("useCart must be used within CartProvider");
   }
-  return context
+  return context;
 }

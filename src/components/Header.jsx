@@ -1,5 +1,6 @@
 "use client";
 
+import "./Header.css";
 import { Link } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
 import { useState } from "react";
@@ -10,57 +11,40 @@ export default function Header() {
   const [searchValue, setSearchValue] = useState("");
 
   return (
-    <header className="bg-[#f8f5ee] border-b border-gray-200 sticky top-0 z-50">
-      <div className="px-4">
-        <div className="flex justify-between items-center h-16">
+    <header className="header">
+      <div className="header-container">
+        <div className="header-inner">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
+          <Link to="/" className="logo-link">
+            <div className="logo-icon">
               <span className="text-white font-bold">B</span>
             </div>
-            <span className="font-bold text-xl hidden sm:inline">
-              bookstore
-            </span>
+            <span className="logo-text">bookstore</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-8">
-            <Link
-              to="/"
-              className="text-gray-700 hover:text-[#222222] transition-colors"
-            >
+          <nav className="desktop-nav">
+            <Link to="/" className="nav-link">
               Trang chủ
             </Link>
-            <Link
-              to="/"
-              className="text-gray-700 hover:text-[#222222] transition-colors"
-            >
+            <Link to="/" className="nav-link">
               Sách của tôi
             </Link>
-            <Link
-              to="/"
-              className="text-gray-700 hover:text-[#222222] transition-colors"
-            >
+            <Link to="/" className="nav-link">
               Duyệt
             </Link>
-            <Link
-              to="/"
-              className="text-gray-700 hover:text-[#222222] transition-colors"
-            >
+            <Link to="/" className="nav-link">
               Cộng đồng
             </Link>
-            <Link
-              to="/admin"
-              className="text-gray-700 hover:text-[#222222] transition-colors"
-            >
+            <Link to="/admin" className="nav-link">
               Quản trị
             </Link>
           </nav>
 
           {/* Search Bar */}
-          <div className="hidden sm:flex flex-1 max-w-xs mx-4 relative">
+          <div className="search-container">
             <svg
-              className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
+              className="search-icon"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -77,15 +61,15 @@ export default function Header() {
               placeholder="Tìm kiếm sách..."
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
-              className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+              className="search-input"
             />
             {searchValue && (
               <button
                 onClick={() => setSearchValue("")}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                className="search-clear-btn"
               >
                 <svg
-                  className="w-5 h-5"
+                  className="search-clear-icon"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -102,13 +86,10 @@ export default function Header() {
           </div>
 
           {/* Right Icons */}
-          <div className="flex items-center gap-4">
-            <Link
-              to="/profile"
-              className="text-gray-700 hover:text-[#222222] transition-colors"
-            >
+          <div className="right-icons">
+            <Link to="/profile" className="icon-link">
               <svg
-                className="w-6 h-6"
+                className="icon"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -121,12 +102,9 @@ export default function Header() {
                 />
               </svg>
             </Link>
-            <Link
-              to="/cart"
-              className="relative text-gray-700 hover:text-[#222222] transition-colors"
-            >
+            <Link to="/cart" className="cart-link">
               <svg
-                className="w-6 h-6"
+                className="icon"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -139,25 +117,20 @@ export default function Header() {
                 />
               </svg>
               {getItemCount() > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {getItemCount()}
-                </span>
+                <span className="cart-badge">{getItemCount()}</span>
               )}
             </Link>
-            <Link
-              to="/login"
-              className="hidden sm:inline text-gray-700 hover:text-[#222222] transition-colors"
-            >
+            <Link to="/login" className="login-link">
               Đăng nhập
             </Link>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-gray-700"
+              className="mobile-menu-btn"
             >
               <svg
-                className="w-6 h-6"
+                className="icon"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -175,35 +148,20 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <nav className="md:hidden pb-4 border-t border-gray-200">
-            <Link
-              to="/"
-              className="block py-2 text-gray-700 hover:text-[#222222] transition-colors"
-            >
+          <nav className="mobile-nav">
+            <Link to="/" className="mobile-nav-link">
               Trang chủ
             </Link>
-            <Link
-              to="/"
-              className="block py-2 text-gray-700 hover:text-[#222222] transition-colors"
-            >
+            <Link to="/" className="mobile-nav-link">
               Sách của tôi
             </Link>
-            <Link
-              to="/"
-              className="block py-2 text-gray-700 hover:text-[#222222] transition-colors"
-            >
+            <Link to="/" className="mobile-nav-link">
               Duyệt
             </Link>
-            <Link
-              to="/"
-              className="block py-2 text-gray-700 hover:text-[#222222] transition-colors"
-            >
+            <Link to="/" className="mobile-nav-link">
               Cộng đồng
             </Link>
-            <Link
-              to="/admin"
-              className="block py-2 text-gray-700 hover:text-[#222222] transition-colors"
-            >
+            <Link to="/admin" className="mobile-nav-link">
               Quản trị
             </Link>
           </nav>

@@ -1,5 +1,6 @@
 "use client";
 
+import "./AuthPages.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -29,72 +30,67 @@ export default function SignupPage() {
   };
 
   return (
-    <main className="max-w-md mx-auto px-4 py-12">
-      <div className="bg-white border border-gray-200 rounded-lg p-8">
-        <h1 className="text-2xl font-bold mb-6 text-center">Đăng Ký</h1>
+    <main className="auth-main">
+      <div className="auth-container">
+        <h1 className="auth-title">Đăng Ký</h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-semibold mb-2">Tên</label>
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="form-group">
+            <label className="form-label">Tên</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+              className="form-input"
               required
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-semibold mb-2">Email</label>
+          <div className="form-group">
+            <label className="form-label">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+              className="form-input"
               required
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-semibold mb-2">Mật khẩu</label>
+          <div className="form-group">
+            <label className="form-label">Mật khẩu</label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+              className="form-input"
               required
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-semibold mb-2">
-              Xác nhận mật khẩu
-            </label>
+          <div className="form-group">
+            <label className="form-label">Xác nhận mật khẩu</label>
             <input
               type="password"
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+              className="form-input"
               required
             />
           </div>
 
-          <button
-            type="submit"
-            className="w-full py-2 bg-primary text-white rounded-lg hover:bg-opacity-90 font-semibold"
-          >
+          <button type="submit" className="submit-btn">
             Đăng Ký
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-600 mt-4">
+        <p className="auth-footer">
           Đã có tài khoản?{" "}
-          <Link to="/login" className="text-primary hover:underline">
+          <Link to="/login" className="auth-link">
             Đăng nhập
           </Link>
         </p>

@@ -1,5 +1,6 @@
 "use client";
 
+import "./BookCard.css";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
 import { formatPrice } from "../lib/books";
@@ -11,9 +12,9 @@ export default function BookCard({ book }) {
   const [showCart, setShowCart] = useState(false);
 
   return (
-    <div className="bg-white">
+    <div className="book-card">
       <div
-        className="relative overflow-hidden bg-gray-100 cursor-pointer rounded-lg border border-gray-200"
+        className="book-image-container"
         onClick={() => navigate(`/product/${book.id}`)}
         onMouseEnter={() => setShowCart(true)}
         onMouseLeave={() => setShowCart(false)}
@@ -22,7 +23,7 @@ export default function BookCard({ book }) {
         <img
           src={book.image || "/placeholder.svg"}
           alt={book.title}
-          className="w-full h-full object-cover hover:scale-105 transition-transform"
+          className="book-image"
         />
         {showCart && (
           <button
@@ -30,10 +31,10 @@ export default function BookCard({ book }) {
               e.stopPropagation();
               addToCart(book);
             }}
-            className="absolute bottom-4 right-4 bg-black text-white p-1.5 rounded-lg transition-colors"
+            className="cart-button"
           >
             <svg
-              className="w-5 h-5"
+              className="cart-icon"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -48,28 +49,26 @@ export default function BookCard({ book }) {
           </button>
         )}
       </div>
-      <div className="pt-3">
+      <div className="book-info">
         <h3
-          className="font-bold text-sm sm:text-base line-clamp-2 cursor-pointer hover:text-primary transition-colors"
+          className="book-title"
           onClick={() => navigate(`/product/${book.id}`)}
         >
           {book.title}
         </h3>
-        <p className="text-gray-600 text-xs sm:text-sm">{book.author}</p>
+        <p className="book-author">{book.author}</p>
 
-        <div className="flex items-center gap-2 my-2">
-          <div className="flex text-yellow-400">
+        <div className="book-rating-container">
+          <div className="book-rating-stars">
             {"★".repeat(Math.floor(book.rating))}
           </div>
-          <span className="text-xs text-gray-600">({book.reviews})</span>
+          <span className="book-review-count">({book.reviews})</span>
         </div>
 
-        <div className="flex items-center gap-2 mb-3">
-          <span className="font-bold text-primary">
-            {formatPrice(book.price)}
-          </span>
+        <div className="book-price-container">
+          <span className="book-price">{formatPrice(book.price)}</span>
           {book.originalPrice && (
-            <span className="text-xs text-gray-500 line-through">
+            <span className="book-original-price">
               {formatPrice(book.originalPrice)}
             </span>
           )}

@@ -1,5 +1,6 @@
 "use client";
 
+import "./ProductDetailPage.css";
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { BOOKS } from "../lib/books";
@@ -19,14 +20,11 @@ export default function ProductDetailPage() {
 
   if (!book) {
     return (
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <button
-          onClick={() => navigate(-1)}
-          className="text-primary hover:underline mb-4"
-        >
+      <main className="detail-main">
+        <button onClick={() => navigate(-1)} className="back-button-not-found">
           ← Quay lại
         </button>
-        <p className="text-center text-gray-600">Sách không tìm thấy</p>
+        <p className="not-found-text">Sách không tìm thấy</p>
       </main>
     );
   }
@@ -39,31 +37,28 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <main className="max-w-7xl mx-auto px-4 py-8">
-      <button
-        onClick={() => navigate(-1)}
-        className="text-primary hover:underline mb-8 flex items-center gap-1"
-      >
+    <main className="detail-main">
+      <button onClick={() => navigate(-1)} className="back-button">
         ← Quay lại
       </button>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="detail-grid">
         {/* Left: Product Image and Actions - STICKY */}
-        <div className="md:col-span-1 md:sticky md:top-4 md:h-fit">
+        <div className="detail-left">
           <div
-            className="bg-gray-100 rounded-lg overflow-hidden mb-4 flex items-center justify-center w-full md:w-80"
+            className="product-image-container"
             style={{ aspectRatio: "3/4" }}
           >
             <img
               src={book.image || "/placeholder.svg"}
               alt={book.title}
-              className="w-full h-full object-cover"
+              className="product-image"
             />
           </div>
 
           <button
             onClick={() => setIsWishlisted(!isWishlisted)}
-            className="w-full py-3 mb-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-semibold"
+            className="wishlist-btn"
           >
             {isWishlisted ? "✓ Muốn đọc" : "Muốn đọc"}
           </button>
@@ -71,19 +66,19 @@ export default function ProductDetailPage() {
           <button
             onClick={handleAddToCart}
             disabled={!book.inStock}
-            className="w-full py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 disabled:bg-gray-400 disabled:text-white disabled:border-gray-400 font-semibold"
+            className="add-to-cart-btn"
           >
             {book.inStock ? "Thêm vào giỏ hàng" : "Hết hàng"}
           </button>
 
-          <div className="mt-6 p-4 border border-gray-200 rounded-lg">
-            <p className="text-sm font-semibold mb-3">Đánh giá cuốn sách này</p>
-            <div className="flex gap-2">
+          <div className="rating-section">
+            <p className="rating-section-title">Đánh giá cuốn sách này</p>
+            <div className="rating-stars-container">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
                   onClick={() => setUserRating(star)}
-                  className="text-2xl transition-colors"
+                  className="rating-star-btn"
                   style={{ color: star <= userRating ? "#fbbf24" : "#e5e7eb" }}
                 >
                   ★
@@ -94,97 +89,88 @@ export default function ProductDetailPage() {
         </div>
 
         {/* Right: Product Details - SCROLLABLE */}
-        <div className="md:col-span-2">
-          <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
-          <p className="text-gray-600 text-lg mb-4">bởi {book.author}</p>
+        <div className="detail-right">
+          <h1 className="detail-title">{book.title}</h1>
+          <p className="detail-author">bởi {book.author}</p>
 
           {/* Rating */}
-          <div className="flex items-center gap-3 mb-6">
-            <div className="flex text-yellow-400 text-xl">
+          <div className="detail-rating-container">
+            <div className="detail-rating-stars">
               {[...Array(5)].map((_, i) => (
                 <span key={i}>{i < Math.floor(book.rating) ? "★" : "☆"}</span>
               ))}
             </div>
-            <span className="text-gray-600">
+            <span className="detail-rating-text">
               {book.rating} · {book.reviews.toLocaleString("vi-VN")} đánh giá ·{" "}
               {book.reviews.toLocaleString("vi-VN")} nhận xét
             </span>
           </div>
 
           {/* Description */}
-          <p className="text-gray-700 mb-6 leading-relaxed">
-            {book.description}
-          </p>
+          <p className="detail-description">{book.description}</p>
 
-          <div className="mb-6">
-            <p className="text-sm font-semibold mb-2">Thể loại</p>
-            <div className="flex flex-wrap gap-2">
+          <div className="genre-section">
+            <p className="genre-title">Thể loại</p>
+            <div className="genre-tags">
               {book.genres.map((genre) => (
-                <span
-                  key={genre}
-                  className="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm"
-                >
+                <span key={genre} className="genre-tag">
                   {genre}
                 </span>
               ))}
             </div>
           </div>
 
-          <div className="border-t border-b border-gray-200 py-6 mb-6">
-            <h3 className="font-bold text-lg mb-4">Chi tiết sách</h3>
-            <div className="grid grid-cols-2 gap-4 text-sm">
+          <div className="book-details-section">
+            <h3 className="book-details-title">Chi tiết sách</h3>
+            <div className="book-details-grid">
               <div>
-                <p className="text-gray-600">Số trang</p>
-                <p className="font-semibold">{book.pages}</p>
+                <p className="detail-item-label">Số trang</p>
+                <p className="detail-item-value">{book.pages}</p>
               </div>
               <div>
-                <p className="text-gray-600">Nhà xuất bản</p>
-                <p className="font-semibold">{book.publisher}</p>
+                <p className="detail-item-label">Nhà xuất bản</p>
+                <p className="detail-item-value">{book.publisher}</p>
               </div>
               <div>
-                <p className="text-gray-600">Ngày xuất bản</p>
-                <p className="font-semibold">
+                <p className="detail-item-label">Ngày xuất bản</p>
+                <p className="detail-item-value">
                   {new Date(book.publishDate).toLocaleDateString("vi-VN")}
                 </p>
               </div>
               <div>
-                <p className="text-gray-600">Ngôn ngữ</p>
-                <p className="font-semibold">{book.language}</p>
+                <p className="detail-item-label">Ngôn ngữ</p>
+                <p className="detail-item-value">{book.language}</p>
               </div>
-              <div className="col-span-2">
-                <p className="text-gray-600">ISBN</p>
-                <p className="font-semibold">{book.isbn}</p>
+              <div className="detail-item-full">
+                <p className="detail-item-label">ISBN</p>
+                <p className="detail-item-value">{book.isbn}</p>
               </div>
             </div>
           </div>
 
           {/* Price and Quantity */}
-          <div className="mb-6">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl font-bold text-primary">
-                {formatPrice(book.price)}
-              </span>
+          <div className="price-quantity-section">
+            <div className="price-container">
+              <span className="current-price">{formatPrice(book.price)}</span>
               {book.originalPrice && (
-                <span className="text-lg text-gray-500 line-through">
+                <span className="original-price">
                   {formatPrice(book.originalPrice)}
                 </span>
               )}
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="flex items-center border border-gray-300 rounded-lg">
+            <div className="quantity-container">
+              <div className="quantity-control">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="px-4 py-2 text-gray-600 hover:bg-gray-100"
+                  className="quantity-btn"
                 >
                   −
                 </button>
-                <span className="px-6 py-2 border-l border-r border-gray-300">
-                  {quantity}
-                </span>
+                <span className="quantity-display">{quantity}</span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="px-4 py-2 text-gray-600 hover:bg-gray-100"
+                  className="quantity-btn"
                 >
                   +
                 </button>

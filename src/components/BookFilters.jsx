@@ -1,5 +1,6 @@
 "use client";
 
+import "./BookFilters.css";
 import { useState } from "react";
 
 const CATEGORIES = ["all", "Kỹ năng sống", "Văn học", "Lịch sử", "Tâm lý học"];
@@ -38,43 +39,45 @@ export default function BookFilters({ onFilter }) {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4 sticky top-4">
-      <h3 className="font-bold text-lg mb-6">Bộ lọc</h3>
+    <div className="filter-container">
+      <h3 className="filter-title">Bộ lọc</h3>
 
       {/* Search */}
-      <div className="mb-6">
-        <label className="block text-sm font-semibold mb-2">Tìm kiếm</label>
+      <div className="filter-section">
+        <label className="filter-label">Tìm kiếm</label>
         <input
           type="text"
           value={search}
           onChange={handleSearchChange}
           placeholder="Tên sách, tác giả..."
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm"
+          className="search-input"
         />
       </div>
 
       {/* Categories */}
-      <div className="mb-6">
-        <label className="block text-sm font-semibold mb-3">Danh mục</label>
-        <div className="space-y-2">
+      <div className="filter-section">
+        <label className="filter-label-section">Danh mục</label>
+        <div className="category-list">
           {CATEGORIES.map((cat) => (
-            <label key={cat} className="flex items-center gap-2 cursor-pointer">
+            <label key={cat} className="category-item">
               <input
                 type="radio"
                 name="category"
                 value={cat}
                 checked={category === cat}
                 onChange={() => handleCategoryChange(cat)}
-                className="w-4 h-4"
+                className="category-radio"
               />
-              <span className="text-sm">{cat === "all" ? "Tất cả" : cat}</span>
+              <span className="category-text">
+                {cat === "all" ? "Tất cả" : cat}
+              </span>
             </label>
           ))}
         </div>
       </div>
 
-      <div className="mb-6">
-        <label className="block text-sm font-semibold mb-3">Khoảng giá</label>
+      <div className="price-section">
+        <label className="filter-label-section">Khoảng giá</label>
         <div className="space-y-2">
           <input
             type="range"
@@ -83,30 +86,29 @@ export default function BookFilters({ onFilter }) {
             step="10000"
             value={priceRange[1]}
             onChange={handlePriceChange}
-            className="w-full"
+            className="price-range-input"
           />
-          <div className="flex justify-between text-xs text-gray-600">
-            <span>0đ</span>
-            <span>{priceRange[1].toLocaleString("vi-VN")}đ</span>
+          <div className="price-display">
+            <span className="price-text">0đ</span>
+            <span className="price-text">
+              {priceRange[1].toLocaleString("vi-VN")}đ
+            </span>
           </div>
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-semibold mb-3">Đánh giá</label>
-        <div className="space-y-2">
+      <div className="rating-section">
+        <label className="filter-label-section">Đánh giá</label>
+        <div className="rating-list">
           {RATINGS.map((r) => (
-            <label
-              key={r.value}
-              className="flex items-center gap-2 cursor-pointer"
-            >
+            <label key={r.value} className="rating-item">
               <input
                 type="checkbox"
                 checked={rating === r.value}
                 onChange={() => handleRatingChange(r.value)}
-                className="w-4 h-4"
+                className="rating-checkbox"
               />
-              <span className="text-sm">{r.label}</span>
+              <span className="rating-text">{r.label}</span>
             </label>
           ))}
         </div>
