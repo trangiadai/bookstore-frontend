@@ -1,14 +1,34 @@
 "use client";
 
 import "./HomePage.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
 import BookFilters from "../components/BookFilters";
 import { BOOKS } from "../lib/books";
+// import axios from "axios";
+import api from "../api/axiosInstance";
 
 export default function HomePage() {
   const [filteredBooks, setFilteredBooks] = useState(BOOKS);
   const [showFilters, setShowFilters] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  // ✅ Fetch products khi component mount
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await api.get("/products"); // gọi API đúng cách
+        console.log("Response data:", response.data);
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Lỗi khi lấy sản phẩm:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  console.log("Products state:", products);
 
   const handleFilter = (filters) => {
     let filtered = BOOKS;
