@@ -1,3 +1,5 @@
+import "../admin/AdminPages.css";
+
 export default function AdminCustomers() {
   const customers = [
     {
@@ -32,43 +34,32 @@ export default function AdminCustomers() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8">Quản lý khách hàng</h1>
+      <h1 className="admin-page-header">Quản lý khách hàng</h1>
 
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-200">
-                <th className="text-left py-3 px-4 font-semibold">
-                  Tên khách hàng
-                </th>
-                <th className="text-left py-3 px-4 font-semibold">Email</th>
-                <th className="text-left py-3 px-4 font-semibold">
-                  Số điện thoại
-                </th>
-                <th className="text-left py-3 px-4 font-semibold">
-                  Số đơn hàng
-                </th>
-                <th className="text-left py-3 px-4 font-semibold">Hành động</th>
+      <div className="admin-card">
+        <div className="admin-table-overflow">
+          <table className="admin-table">
+            <thead className="admin-table-head">
+              <tr>
+                <th className="admin-table-header">Tên khách hàng</th>
+                <th className="admin-table-header">Email</th>
+                <th className="admin-table-header">Số điện thoại</th>
+                <th className="admin-table-header">Số đơn hàng</th>
+                <th className="admin-table-header">Hành động</th>
               </tr>
             </thead>
             <tbody>
               {customers.map((customer) => (
-                <tr
-                  key={customer.id}
-                  className="border-b border-gray-200 hover:bg-gray-50"
-                >
-                  <td className="py-3 px-4 font-semibold">{customer.name}</td>
-                  <td className="py-3 px-4">{customer.email}</td>
-                  <td className="py-3 px-4">{customer.phone}</td>
-                  <td className="py-3 px-4">{customer.orders}</td>
-                  <td className="py-3 px-4">
-                    <button className="text-blue-600 hover:text-blue-800 mr-3">
+                <tr key={customer.id} className="admin-table-row">
+                  <td className="admin-table-cell-bold">{customer.name}</td>
+                  <td className="admin-table-cell">{customer.email}</td>
+                  <td className="admin-table-cell">{customer.phone}</td>
+                  <td className="admin-table-cell">{customer.orders}</td>
+                  <td className="admin-table-cell">
+                    <button className="text-blue-600 admin-btn-link">
                       Xem
                     </button>
-                    <button className="text-red-600 hover:text-red-800">
-                      Xóa
-                    </button>
+                    <button className="admin-btn-delete">Xóa</button>
                   </td>
                 </tr>
               ))}

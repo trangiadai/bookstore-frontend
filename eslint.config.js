@@ -35,6 +35,8 @@ export default [
       ],
       // Disable prop-types checking
       "react/prop-types": "off",
+      // 👉 TẮT cảnh báo biến không dùng
+      "no-unused-vars": "off",
     },
   },
 ];

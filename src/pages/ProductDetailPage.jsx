@@ -31,7 +31,7 @@ export default function ProductDetailPage() {
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
-      addToCart(book.id.toString());
+      addToCart(book.id);
     }
     navigate("/cart");
   };
