@@ -1,19 +1,34 @@
 "use client";
 
 import "./Header.css";
-import { Link } from "react-router-dom";
-import { useCart } from "../contexts/CartContext";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { useCart } from "../contexts/CartContext";
+
+// Import ShoppingCart icon
+import { ShoppingCart } from "lucide-react";
 
 export default function Header() {
-  const { getItemCount } = useCart();
+  const { cartCount } = useCart();        // cartCount từ CartContext
+  const { username, logout, isAuthenticated } = useAuth();
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <header className="header">
       <div className="header-container">
         <div className="header-inner">
+          
           {/* Logo */}
           <Link to="/" className="logo-link">
             <div className="logo-icon">
@@ -24,37 +39,18 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="desktop-nav">
-            <Link to="/" className="nav-link">
-              Trang chủ
-            </Link>
-            <Link to="/" className="nav-link">
-              Sách của tôi
-            </Link>
-            <Link to="/" className="nav-link">
-              Duyệt
-            </Link>
-            <Link to="/" className="nav-link">
-              Cộng đồng
-            </Link>
-            <Link to="/admin" className="nav-link">
-              Quản trị
-            </Link>
+            <Link to="/" className="nav-link">Trang chủ</Link>
+            <Link to="/" className="nav-link">Sách của tôi</Link>
+            <Link to="/" className="nav-link">Duyệt</Link>
+            <Link to="/" className="nav-link">Cộng đồng</Link>
+            <Link to="/admin" className="nav-link">Quản trị</Link>
           </nav>
 
           {/* Search Bar */}
           <div className="search-container">
-            <svg
-              className="search-icon"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
+            <svg className="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input
               type="text"
@@ -64,22 +60,10 @@ export default function Header() {
               className="search-input"
             />
             {searchValue && (
-              <button
-                onClick={() => setSearchValue("")}
-                className="search-clear-btn"
-              >
-                <svg
-                  className="search-clear-icon"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+              <button onClick={() => setSearchValue("")} className="search-clear-btn">
+                <svg className="search-clear-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             )}
@@ -87,60 +71,64 @@ export default function Header() {
 
           {/* Right Icons */}
           <div className="right-icons">
+            
+            {/* User Profile Icon */}
             <Link to="/profile" className="icon-link">
-              <svg
-                className="icon"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
+              <svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
             </Link>
-            <Link to="/cart" className="cart-link">
-              <svg
-                className="icon"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-              {getItemCount() > 0 && (
-                <span className="cart-badge">{getItemCount()}</span>
+
+            {/* Cart Icon (new) */}
+            <div
+              className="relative cursor-pointer cart-link"
+              onClick={() => navigate("/cart")}
+            >
+              <ShoppingCart size={26} className="icon" />
+
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+                  {cartCount}
+                </span>
               )}
-            </Link>
-            <Link to="/login" className="login-link">
-              Đăng nhập
-            </Link>
+            </div>
+
+            {/* Login / Username */}
+            {!isAuthenticated ? (
+              <Link to="/login" className="login-link">Đăng nhập</Link>
+            ) : (
+              <div className="user-menu">
+                <span
+                  className="login-link"
+                  onClick={() => setMenuOpen(!menuOpen)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {username}
+                </span>
+
+                {menuOpen && (
+                  <div className="dropdown-menu">
+                    <button
+                      onClick={handleLogout}
+                      className="dropdown-item"
+                      style={{ width: "100%", textAlign: "left" }}
+                    >
+                      Đăng xuất
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="mobile-menu-btn"
             >
-              <svg
-                className="icon"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+              <svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
@@ -149,21 +137,11 @@ export default function Header() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <nav className="mobile-nav">
-            <Link to="/" className="mobile-nav-link">
-              Trang chủ
-            </Link>
-            <Link to="/" className="mobile-nav-link">
-              Sách của tôi
-            </Link>
-            <Link to="/" className="mobile-nav-link">
-              Duyệt
-            </Link>
-            <Link to="/" className="mobile-nav-link">
-              Cộng đồng
-            </Link>
-            <Link to="/admin" className="mobile-nav-link">
-              Quản trị
-            </Link>
+            <Link to="/" className="mobile-nav-link">Trang chủ</Link>
+            <Link to="/" className="mobile-nav-link">Sách của tôi</Link>
+            <Link to="/" className="mobile-nav-link">Duyệt</Link>
+            <Link to="/" className="mobile-nav-link">Cộng đồng</Link>
+            <Link to="/admin" className="mobile-nav-link">Quản trị</Link>
           </nav>
         )}
       </div>

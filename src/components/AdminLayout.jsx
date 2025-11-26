@@ -9,19 +9,25 @@ export default function AdminLayout({ children, activeTab, onTabChange }) {
   const tabs = [
     { id: "dashboard", label: "Trang chủ", icon: "📊" },
     { id: "products", label: "Quản lý sản phẩm", icon: "📦" },
+    { id: "categories", label: "Quản lý danh mục", icon: "📂" },
     { id: "orders", label: "Quản lý đơn hàng", icon: "🛒" },
     { id: "customers", label: "Quản lý khách hàng", icon: "👥" },
     { id: "statistics", label: "Thống kê", icon: "📈" },
+
+    // ⭐⭐⭐ THÊM MỤC CHAT CHO ADMIN ⭐⭐⭐
+    { id: "chat", label: "Chat hỗ trợ", icon: "💬" },
   ];
 
   return (
     <div className="flex h-screen bg-gray-100">
+      
       {/* Sidebar */}
       <div
         className={`${
           sidebarOpen ? "w-64" : "w-20"
         } bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}
       >
+
         <div className="p-4 border-b border-gray-200 flex items-center justify-between">
           {sidebarOpen && <h2 className="font-bold text-lg">Quản trị</h2>}
           <button
@@ -32,6 +38,7 @@ export default function AdminLayout({ children, activeTab, onTabChange }) {
           </button>
         </div>
 
+        {/* Navigation */}
         <nav className="flex-1 p-4 space-y-2">
           {tabs.map((tab) => (
             <button
@@ -49,6 +56,7 @@ export default function AdminLayout({ children, activeTab, onTabChange }) {
           ))}
         </nav>
 
+        {/* Back to home */}
         <div className="p-4 border-t border-gray-200">
           <Link
             to="/"
@@ -58,12 +66,14 @@ export default function AdminLayout({ children, activeTab, onTabChange }) {
             {sidebarOpen && <span>Về trang chủ</span>}
           </Link>
         </div>
+
       </div>
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
         <div className="p-8">{children}</div>
       </div>
+
     </div>
   );
 }

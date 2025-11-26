@@ -1,0 +1,37 @@
+.admin-categories {
+  padding: 20px;
+}
+
+.add-category {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.add-category input, .add-category select {
+  padding: 5px;
+}
+
+.category-list {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.category-item {
+  margin-bottom: 10px;
+}
+
+.child-item {
+  margin-left: 20px;
+  padding-left: 10px;
+  border-left: 2px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions button {
+  margin-left: 5px;
+  padding: 2px 6px;
+  cursor: pointer;
+}

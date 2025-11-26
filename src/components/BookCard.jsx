@@ -2,14 +2,26 @@
 
 import "./BookCard.css";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../contexts/CartContext";
 import { formatPrice } from "../lib/books";
 import { useState } from "react";
+import { useCart } from "../contexts/CartContext";
 
 export default function BookCard({ book }) {
   const navigate = useNavigate();
-  const { addToCart } = useCart();
   const [showCart, setShowCart] = useState(false);
+
+  const { addToCartAPI } = useCart(); // ← dùng API mới
+
+  const handleAddQuick = async (e) => {
+    e.stopPropagation();
+
+    const success = await addToCartAPI(book.id, 1);
+
+    if (success) {
+      // bạn muốn popup hay toast thì nói thêm nhé
+      console.log("Thêm vào giỏ nhanh thành công");
+    }
+  };
 
   return (
     <div className="book-card">
@@ -25,14 +37,9 @@ export default function BookCard({ book }) {
           alt={book.title}
           className="book-image"
         />
+
         {showCart && (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              addToCart(book);
-            }}
-            className="cart-button"
-          >
+          <button className="cart-button" onClick={handleAddQuick}>
             <svg
               className="cart-icon"
               fill="none"
@@ -43,12 +50,17 @@ export default function BookCard({ book }) {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 
+                 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 
+                 1.707.707 1.707H17m0 0a2 2 0 100 
+                 4 2 2 0 000-4zm-8 2a2 2 0 11-4 
+                 0 2 2 0 014 0z"
               />
             </svg>
           </button>
         )}
       </div>
+
       <div className="book-info">
         <h3
           className="book-title"
@@ -56,6 +68,7 @@ export default function BookCard({ book }) {
         >
           {book.title}
         </h3>
+
         <p className="book-author">{book.author}</p>
 
         <div className="book-rating-container">
@@ -67,11 +80,6 @@ export default function BookCard({ book }) {
 
         <div className="book-price-container">
           <span className="book-price">{formatPrice(book.price)}</span>
-          {book.originalPrice && (
-            <span className="book-original-price">
-              {formatPrice(book.originalPrice)}
-            </span>
-          )}
         </div>
       </div>
     </div>

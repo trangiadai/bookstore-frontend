@@ -2,16 +2,48 @@
 
 import "./AuthPages.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { httpClient } from "../lib/httpClient";
+import { useAuth } from "../contexts/AuthContext";   // <-- thêm
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Login:", { email, password });
-  };
+  const { login } = useAuth();   // <-- thêm
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  setErrorMsg("");
+
+  try {
+    const response = await httpClient.post("/auth/token", {
+      username,
+      password,
+    });
+
+    const { token, authenticated } = response.data?.result || {};
+
+    if (!authenticated) {
+      setErrorMsg("Sai tên đăng nhập hoặc mật khẩu.");
+      return;
+    }
+
+    if (token) {
+      login(token); 
+      navigate("/");
+      return;
+    }
+
+    setErrorMsg("Đăng nhập thất bại. Vui lòng thử lại.");
+  } catch (error) {
+    console.error("Login error:", error);
+    setErrorMsg("Có lỗi xảy ra. Vui lòng thử lại.");
+  }
+};
+
 
   return (
     <main className="auth-main">
@@ -20,11 +52,11 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label className="form-label">Email</label>
+            <label className="form-label">Tên đăng nhập</label>
             <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="form-input"
               required
             />
@@ -40,6 +72,8 @@ export default function LoginPage() {
               required
             />
           </div>
+
+          {errorMsg && <p className="error-text">{errorMsg}</p>}
 
           <button type="submit" className="submit-btn">
             Đăng Nhập
