@@ -2,15 +2,41 @@
 
 import "./AuthPages.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(""); // trường này đang là "email"
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate(); // để điều hướng sau khi đăng nhập thành công
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login:", { email, password });
+    setError(null);
+
+    try {
+      // Gửi POST request tới backend
+      const response = await axios.post(
+        "http://localhost:8080/bookstore/auth/token",
+        {
+          username: email, // Backend của bạn dùng "username" chứ không phải "email"
+          password: password,
+        }
+      );
+
+      // Lấy token từ kết quả trả về
+      const token = response.data.result.token;
+
+      // Lưu token vào localStorage để dùng cho các API khác
+      localStorage.setItem("token", token);
+
+      alert("Đăng nhập thành công!");
+      navigate("/"); // chuyển về trang chủ hoặc trang products
+    } catch (err) {
+      console.error("Đăng nhập thất bại:", err);
+      setError("Sai tài khoản hoặc mật khẩu!");
+    }
   };
 
   return (
@@ -20,9 +46,9 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label className="form-label">Email</label>
+            <label className="form-label">Tên đăng nhập</label>
             <input
-              type="email"
+              type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="form-input"
@@ -40,6 +66,8 @@ export default function LoginPage() {
               required
             />
           </div>
+
+          {error && <p className="error-text">{error}</p>}
 
           <button type="submit" className="submit-btn">
             Đăng Nhập

@@ -1,5 +1,6 @@
 "use client";
 
+import "../admin/AdminPages.css";
 import { useState } from "react";
 
 export default function AdminProducts() {
@@ -94,114 +95,98 @@ export default function AdminProducts() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8">Quản lý sản phẩm</h1>
+      <h1 className="admin-page-header">Quản lý sản phẩm</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Form */}
-        <div className="lg:col-span-1 bg-white border border-gray-200 rounded-lg p-6">
-          <h2 className="text-xl font-bold mb-6">Thêm sản phẩm</h2>
+        <div className="admin-form-col">
+          <h2 className="admin-form-title">Thêm sản phẩm</h2>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-semibold mb-2">
-                Tên Sản Phẩm
-              </label>
+          <form onSubmit={handleSubmit} className="admin-form-group">
+            <div className="admin-form-field">
+              <label className="admin-form-label">Tên Sản Phẩm</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm"
+                className="admin-form-input"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-2">
-                Tác Giả
-              </label>
+            <div className="admin-form-field">
+              <label className="admin-form-label">Tác Giả</label>
               <input
                 type="text"
                 name="author"
                 value={formData.author}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm"
+                className="admin-form-input"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-2">
-                Năm Xuất Bản
-              </label>
+            <div className="admin-form-field">
+              <label className="admin-form-label">Năm Xuất Bản</label>
               <input
                 type="text"
                 name="publishYear"
                 value={formData.publishYear}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm"
+                className="admin-form-input"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-2">
-                Giá Nhập
-              </label>
+            <div className="admin-form-field">
+              <label className="admin-form-label">Giá Nhập</label>
               <input
                 type="number"
                 name="importPrice"
                 value={formData.importPrice}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm"
+                className="admin-form-input"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-2">
-                Giá Gốc
-              </label>
+            <div className="admin-form-field">
+              <label className="admin-form-label">Giá Gốc</label>
               <input
                 type="number"
                 name="originalPrice"
                 value={formData.originalPrice}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm"
+                className="admin-form-input"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-2">
-                Giá Giảm
-              </label>
+            <div className="admin-form-field">
+              <label className="admin-form-label">Giá Giảm</label>
               <input
                 type="number"
                 name="discountPrice"
                 value={formData.discountPrice}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm"
+                className="admin-form-input"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-2">
-                Số Lượng
-              </label>
+            <div className="admin-form-field">
+              <label className="admin-form-label">Số Lượng</label>
               <input
                 type="number"
                 name="quantity"
                 value={formData.quantity}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm"
+                className="admin-form-input"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-2">
-                Thể Loại
-              </label>
+            <div className="admin-form-field">
+              <label className="admin-form-label">Thể Loại</label>
               <select
                 name="category"
                 value={formData.category}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm"
+                className="admin-form-select"
               >
                 <option value="">-- Chọn Thể Loại --</option>
                 <option value="kynang">Kỹ năng sống</option>
@@ -211,24 +196,20 @@ export default function AdminProducts() {
               </select>
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-2">
-                Ngôn Ngữ
-              </label>
+            <div className="admin-form-field">
+              <label className="admin-form-label">Ngôn Ngữ</label>
               <input
                 type="text"
                 name="language"
                 value={formData.language}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm"
+                className="admin-form-input"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-2">
-                Hình Ảnh
-              </label>
-              <label className="flex items-center justify-center w-full px-3 py-2 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-primary">
+            <div className="admin-form-field">
+              <label className="admin-form-label">Hình Ảnh</label>
+              <label className="admin-image-upload">
                 <span className="text-gray-600 text-sm">Chọn tệp</span>
                 <input
                   type="file"
@@ -238,16 +219,16 @@ export default function AdminProducts() {
                 />
               </label>
               {formData.imagePreview && (
-                <div className="mt-2 relative">
+                <div className="admin-image-preview">
                   <img
                     src={formData.imagePreview || "/placeholder.svg"}
                     alt="Preview"
-                    className="w-full h-24 object-cover rounded-lg"
+                    className="admin-image-preview-img"
                   />
                   <button
                     type="button"
                     onClick={handleRemoveImage}
-                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 text-xs"
+                    className="admin-image-preview-btn"
                   >
                     ✕
                   </button>
@@ -260,28 +241,22 @@ export default function AdminProducts() {
               )}
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-2">Mô Tả</label>
+            <div className="admin-form-field">
+              <label className="admin-form-label">Mô Tả</label>
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
                 rows="3"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm"
+                className="admin-form-textarea"
               />
             </div>
 
-            <div className="flex gap-2">
-              <button
-                type="submit"
-                className="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90 font-semibold text-sm"
-              >
+            <div className="admin-form-buttons">
+              <button type="submit" className="admin-btn-submit">
                 Thêm
               </button>
-              <button
-                type="reset"
-                className="flex-1 px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 font-semibold text-sm"
-              >
+              <button type="reset" className="admin-btn-reset">
                 Hủy
               </button>
             </div>
@@ -289,43 +264,32 @@ export default function AdminProducts() {
         </div>
 
         {/* Products List */}
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-lg p-6">
-          <h2 className="text-xl font-bold mb-6">Danh sách sản phẩm</h2>
+        <div className="admin-products-col">
+          <h2 className="admin-card-title">Danh sách sản phẩm</h2>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 font-semibold">
-                    Tên sản phẩm
-                  </th>
-                  <th className="text-left py-3 px-4 font-semibold">Tác giả</th>
-                  <th className="text-left py-3 px-4 font-semibold">Giá</th>
-                  <th className="text-left py-3 px-4 font-semibold">
-                    Số lượng
-                  </th>
-                  <th className="text-left py-3 px-4 font-semibold">
-                    Hành động
-                  </th>
+          <div className="admin-table-overflow">
+            <table className="admin-table">
+              <thead className="admin-table-head">
+                <tr>
+                  <th className="admin-table-header">Tên sản phẩm</th>
+                  <th className="admin-table-header">Tác giả</th>
+                  <th className="admin-table-header">Giá</th>
+                  <th className="admin-table-header">Số lượng</th>
+                  <th className="admin-table-header">Hành động</th>
                 </tr>
               </thead>
               <tbody>
                 {products.map((product) => (
-                  <tr
-                    key={product.id}
-                    className="border-b border-gray-200 hover:bg-gray-50"
-                  >
-                    <td className="py-3 px-4">{product.name}</td>
-                    <td className="py-3 px-4">{product.author}</td>
-                    <td className="py-3 px-4">{product.price}</td>
-                    <td className="py-3 px-4">{product.quantity}</td>
-                    <td className="py-3 px-4">
-                      <button className="text-blue-600 hover:text-blue-800 mr-3">
+                  <tr key={product.id} className="admin-table-row">
+                    <td className="admin-table-cell">{product.name}</td>
+                    <td className="admin-table-cell">{product.author}</td>
+                    <td className="admin-table-cell">{product.price}</td>
+                    <td className="admin-table-cell">{product.quantity}</td>
+                    <td className="admin-table-cell">
+                      <button className="text-blue-600 admin-btn-link">
                         Sửa
                       </button>
-                      <button className="text-red-600 hover:text-red-800">
-                        Xóa
-                      </button>
+                      <button className="admin-btn-delete">Xóa</button>
                     </td>
                   </tr>
                 ))}

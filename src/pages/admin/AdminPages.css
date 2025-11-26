@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .admin-page-header {
+    @apply text-3xl font-bold mb-8;
+  }
+
+  .admin-page-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8;
+  }
+
+  .admin-stat-card {
+    @apply bg-white p-6 rounded-lg border border-gray-200;
+  }
+
+  .admin-stat-content {
+    @apply flex items-center justify-between;
+  }
+
+  .admin-stat-label {
+    @apply text-gray-600 text-sm;
+  }
+
+  .admin-stat-value {
+    @apply text-2xl font-bold mt-2;
+  }
+
+  .admin-stat-icon {
+    @apply text-4xl;
+  }
+
+  .admin-grid-2col {
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+  }
+
+  .admin-card {
+    @apply bg-white p-6 rounded-lg border border-gray-200;
+  }
+
+  .admin-card-title {
+    @apply text-xl font-bold mb-4;
+  }
+
+  .admin-space-y-3 {
+    @apply space-y-3;
+  }
+
+  .admin-item {
+    @apply flex justify-between items-center pb-3 border-b;
+  }
+
+  .admin-item-name {
+    @apply font-semibold;
+  }
+
+  .admin-item-date {
+    @apply text-sm text-gray-600;
+  }
+
+  .admin-item-value {
+    @apply text-green-600 font-semibold;
+  }
+
+  .admin-table {
+    @apply w-full;
+  }
+
+  .admin-table-head {
+    @apply border-b border-gray-200;
+  }
+
+  .admin-table-header {
+    @apply text-left py-3 px-4 font-semibold;
+  }
+
+  .admin-table-row {
+    @apply border-b border-gray-200 hover:bg-gray-50;
+  }
+
+  .admin-table-cell {
+    @apply py-3 px-4;
+  }
+
+  .admin-table-cell-bold {
+    @apply py-3 px-4 font-semibold;
+  }
+
+  .admin-status-badge {
+    @apply px-3 py-1 rounded-full text-sm font-semibold;
+  }
+
+  .admin-btn-link {
+    @apply hover:text-blue-800 mr-3;
+  }
+
+  .admin-btn-delete {
+    @apply text-red-600 hover:text-red-800;
+  }
+
+  .admin-form-col {
+    @apply lg:col-span-1 bg-white border border-gray-200 rounded-lg p-6;
+  }
+
+  .admin-form-title {
+    @apply text-xl font-bold mb-6;
+  }
+
+  .admin-form-group {
+    @apply space-y-4;
+  }
+
+  .admin-form-field {
+    @apply mb-4;
+  }
+
+  .admin-form-label {
+    @apply block text-sm font-semibold mb-2;
+  }
+
+  .admin-form-input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm;
+  }
+
+  .admin-form-textarea {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm;
+  }
+
+  .admin-form-select {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-sm;
+  }
+
+  .admin-form-buttons {
+    @apply flex gap-2;
+  }
+
+  .admin-btn-submit {
+    @apply flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90 font-semibold text-sm;
+  }
+
+  .admin-btn-reset {
+    @apply flex-1 px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 font-semibold text-sm;
+  }
+
+  .admin-image-upload {
+    @apply flex items-center justify-center w-full px-3 py-2 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-primary;
+  }
+
+  .admin-image-preview {
+    @apply mt-2 relative;
+  }
+
+  .admin-image-preview-img {
+    @apply w-full h-24 object-cover rounded-lg;
+  }
+
+  .admin-image-preview-btn {
+    @apply absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 text-xs;
+  }
+
+  .admin-products-col {
+    @apply lg:col-span-2 bg-white border border-gray-200 rounded-lg p-6;
+  }
+
+  .admin-table-overflow {
+    @apply overflow-x-auto;
+  }
+
+  .admin-chart-container {
+    @apply h-64 flex items-end justify-around gap-2;
+  }
+
+  .admin-chart-bar {
+    @apply rounded-t;
+  }
+
+  .admin-chart-label {
+    @apply text-xs mt-2;
+  }
+
+  .admin-progress-item {
+    @apply space-y-4;
+  }
+
+  .admin-progress-header {
+    @apply flex justify-between mb-1;
+  }
+
+  .admin-progress-bar {
+    @apply w-full bg-gray-200 rounded-full h-2;
+  }
+
+  .admin-progress-fill {
+    @apply bg-primary h-2 rounded-full;
+  }
+}

@@ -1,3 +1,5 @@
+import "../admin/AdminPages.css";
+
 export default function AdminOrders() {
   const orders = [
     {
@@ -45,46 +47,39 @@ export default function AdminOrders() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8">Quản lý đơn hàng</h1>
+      <h1 className="admin-page-header">Quản lý đơn hàng</h1>
 
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-200">
-                <th className="text-left py-3 px-4 font-semibold">Mã đơn</th>
-                <th className="text-left py-3 px-4 font-semibold">
-                  Khách hàng
-                </th>
-                <th className="text-left py-3 px-4 font-semibold">Ngày đặt</th>
-                <th className="text-left py-3 px-4 font-semibold">Tổng tiền</th>
-                <th className="text-left py-3 px-4 font-semibold">
-                  Trạng thái
-                </th>
-                <th className="text-left py-3 px-4 font-semibold">Hành động</th>
+      <div className="admin-card">
+        <div className="admin-table-overflow">
+          <table className="admin-table">
+            <thead className="admin-table-head">
+              <tr>
+                <th className="admin-table-header">Mã đơn</th>
+                <th className="admin-table-header">Khách hàng</th>
+                <th className="admin-table-header">Ngày đặt</th>
+                <th className="admin-table-header">Tổng tiền</th>
+                <th className="admin-table-header">Trạng thái</th>
+                <th className="admin-table-header">Hành động</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order) => (
-                <tr
-                  key={order.id}
-                  className="border-b border-gray-200 hover:bg-gray-50"
-                >
-                  <td className="py-3 px-4 font-semibold">#{order.id}</td>
-                  <td className="py-3 px-4">{order.customer}</td>
-                  <td className="py-3 px-4">{order.date}</td>
-                  <td className="py-3 px-4 font-semibold">{order.total}</td>
-                  <td className="py-3 px-4">
+                <tr key={order.id} className="admin-table-row">
+                  <td className="admin-table-cell-bold">#{order.id}</td>
+                  <td className="admin-table-cell">{order.customer}</td>
+                  <td className="admin-table-cell">{order.date}</td>
+                  <td className="admin-table-cell-bold">{order.total}</td>
+                  <td className="admin-table-cell">
                     <span
-                      className={`px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(
+                      className={`admin-status-badge ${getStatusColor(
                         order.status
                       )}`}
                     >
                       {order.status}
                     </span>
                   </td>
-                  <td className="py-3 px-4">
-                    <button className="text-blue-600 hover:text-blue-800">
+                  <td className="admin-table-cell">
+                    <button className="text-blue-600 admin-btn-link">
                       Chi tiết
                     </button>
                   </td>

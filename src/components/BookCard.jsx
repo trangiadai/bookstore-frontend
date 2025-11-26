@@ -29,7 +29,7 @@ export default function BookCard({ book }) {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              addToCart(book);
+              addToCart(book.id);
             }}
             className="cart-button"
           >

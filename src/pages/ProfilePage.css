@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .profile-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  }
+
+  .profile-header {
+    @apply text-3xl font-bold mb-8;
+  }
+
+  .profile-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-8;
+  }
+
+  .profile-sidebar {
+    @apply md:col-span-1;
+  }
+
+  .profile-sidebar-box {
+    @apply bg-white border border-gray-200 rounded-lg p-6;
+  }
+
+  .profile-avatar-container {
+    @apply relative w-32 h-32 mx-auto mb-4;
+  }
+
+  .profile-avatar {
+    @apply w-full h-full rounded-full object-cover;
+  }
+
+  .profile-avatar-btn {
+    @apply absolute bottom-0 right-0 bg-primary text-white rounded-full p-2 cursor-pointer hover:bg-opacity-90;
+  }
+
+  .profile-avatar-icon {
+    @apply w-5 h-5;
+  }
+
+  .profile-name {
+    @apply text-center font-bold text-lg;
+  }
+
+  .profile-email {
+    @apply text-center text-gray-600 text-sm;
+  }
+
+  .profile-button-group {
+    @apply mt-6 space-y-2;
+  }
+
+  .profile-btn-primary {
+    @apply w-full py-2 bg-primary text-white rounded-lg hover:bg-opacity-90;
+  }
+
+  .profile-btn-secondary {
+    @apply w-full py-2 border border-gray-300 rounded-lg hover:bg-gray-50;
+  }
+
+  .profile-content {
+    @apply md:col-span-2;
+  }
+
+  .profile-content-box {
+    @apply bg-white border border-gray-200 rounded-lg p-6;
+  }
+
+  .profile-content-title {
+    @apply text-xl font-bold mb-4;
+  }
+
+  .profile-empty {
+    @apply text-center py-12;
+  }
+
+  .profile-empty-icon {
+    @apply w-16 h-16 mx-auto text-gray-300 mb-4;
+  }
+
+  .profile-empty-text {
+    @apply text-gray-600;
+  }
+}
